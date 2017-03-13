@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Calculator</title>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="mystyle.css">
+    
+</head>
+<body>
+    <h1 class="text-center">Javascript calculator</h1>
+    <div class='main'>
+    <h3 class='text-center'>Calculator 9000</h3>
+        <div class='screen'>0
+        <p class='smallScreen'></p>
+        </div>
+    <button type="button" class='simple' >AC</button>
+    <button type="button" class='simple'>CE</button>
+    <button type="button" class='simple'>/</button>
+    <button type="button" class='simple'>x</button>
+    <button type="button" class='simple'>7</button>
+    <button type="button" class='simple'>8</button>
+    <button type="button" class='simple'>9</button>
+    <button type="button" class='simple'>-</button>
+    <button type="button" class='simple'>4</button>
+    <button type="button" class='simple'>5</button>
+    <button type="button" class='simple'>6</button>
+    <button type="button" class='simple'>+</button>
+    <div class='lowbtn'>
+        <button type="button" class='simple'>1</button>
+    <button type="button" class='simple'>2</button>
+    <button type="button" class='simple'>3</button>    
+    <button  id ='equal' type="button" class='simple'>=</button>
+    <button id='zero' type="button" class='simple'>0</button>
+        <button type="button" class='simple'>.</button>    
+    </div>
+    </div>
+    <script >
+ 
+        $( document ).ready(function(){
+  var dec=1;
+function count(ar) {
+  if (ar.length === 1) {
+    return Math.floor(ar[0]*(Math.pow(10,dec)))/Math.pow(10,dec);
+     
+      }
+    dec = ar[2].length+1;
+  switch (ar[1]){
+  case '+': 
+    ar[2] = Number(ar[0]) + Number(ar[2]);
+  break;
+  case '-':
+    ar[2] = Number(ar[0]) - Number(ar[2]);
+   break;
+  case "x":
+   ar[2] = Number(ar[0]) * Number(ar[2]);
+  break;
+   case '/':
+    
+    console.log(dec);
+   ar[2] = Number(ar[0]) / Number(ar[2]);
+   
+   break;
+  }
+  ar.shift();
+  ar.shift();
+  return count(ar);
+}
+            var ar= [];//array of number and operations
+            var num ='';
+            var bool=false; //boolean for number
+            var bool2=false; //boolean for operations
+            var bool3=false;//boolean for equal
+            var bool4=false; //boolean for chain of numbers
+            var bool5=false; //boolean for dot 
+            var text='';
+    $(".simple").on('click',function(){
+    switch ($(this).text()){
+        case '+':
+        case '-':
+        case 'x':
+        case '/':
+            switch (bool2){
+                case true:    
+    ar.push(num);
+    ar.push($(this).text());
+     text+=$(this).text();                
+        $('.screen').html($(this).text() + '<p>' + text + '<p>');
+                    
+        num ='';            
+    bool2=false;
+     bool4=false;
+    bool5=false;
+        break;
+            }
+            
+        break;    
+    case '=':
+            switch (bool3){
+                case true: 
+                    ar.push(num);
+    num =count(ar);
+            text+=$(this).text()+num;
+             $('.screen').html(num + '<p>' + text +'</p>' );
+                
+        ar=[];
+         bool = true;
+        bool2=true;
+        bool4=true;            
+        bool3=false;
+        break;            
+            }
+            break;
+        case '.':
+            if(/[.]/.test(num)===false){
+             if(bool5){
+        num += $(this).text();
+        text+=$(this).text();
+        $('.screen').html(num + '<p>' + text +'</p>' );            
+            bool=false;
+                bool4=false;
+                bool5=false;
+            }
+            }
+            break;
+          case 'AC':
+            ar=[];
+            num=0;
+            text='';
+            bool =true;
+            bool2=false;
+            $('.screen').text(num);
+            break;
+        default:
+             switch (bool4){
+                case true:
+                bool4=false;
+                text='';
+                break;    
+            }
+            switch (bool){
+                case true:
+                bool=false;
+                num='';
+                  
+                break;    
+            }
+        
+        num += $(this).text();
+        text+=$(this).text();
+      
+        bool2=true;
+        bool3=true; 
+        bool5=true;        
+            console.log(num);
+    $('.screen').html(num + '<p>' + text +'</p>' );
+            if(num.length>10){
+            
+            $('.screen').html('Digit limit met');
+            num='';
+            text='';    
+        }    
+    }
+        
+ 
+        
+        
+})
+    
+   
+        })
+    </script>
+</body>
+</html>
