@@ -131,15 +131,15 @@ function count(ar) {
             }
             break;
             case 'CE':
-           if(!bool2){
+          /*   else if(num.length>1){
+                 if(!bool2){
                 ar.pop();
-                num=num.slice(0,num.length-1);
-                text=text.slice(0,text.length-1);
+                //num=num.slice(0,num.length-1);
+                //text=text.slice(0,text.length-1);
                 $('.screen').html(num + '<p>' + text +'</p>' );
                 bool2=true;
             }        
-                 /*   else if(num.length>1){
-                
+                 
                 num=num.slice(0,num.length-1);
                 text=text.slice(0,text.length-1);
                 $('.screen').html(num + '<p>' + text +'</p>' );
