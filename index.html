@@ -14,7 +14,7 @@
     <div class='main'>
     <h3 class='text-center'>Calculator 9000</h3>
         <div class='screen'>0
-        <p class='smallScreen'></p>
+        <p class='smallScreen'>0</p>
         </div>
     <button type="button" class='simple' >AC</button>
     <button type="button" class='simple'>CE</button>
@@ -86,14 +86,18 @@ function count(ar) {
                 case true:    
     ar.push(num);
     ar.push($(this).text());
+      num += $(this).text();               
      text+=$(this).text();                
         $('.screen').html($(this).text() + '<p>' + text + '<p>');
                     
-        num ='';            
-    bool2=false;
-     bool4=false;
+        //num ='';
+          bool=true;
+         bool3=false;            
+    bool4=false;
     bool5=false;
-        break;
+    bool2=false;
+                    
+          break;
             }
             
         break;    
@@ -103,6 +107,7 @@ function count(ar) {
                     ar.push(num);
     num =count(ar);
             text+=$(this).text()+num;
+                   
              $('.screen').html(num + '<p>' + text +'</p>' );
                 
         ar=[];
@@ -125,13 +130,35 @@ function count(ar) {
             }
             }
             break;
+            case 'CE':
+           if(!bool2){
+                ar.pop();
+                num=num.slice(0,num.length-1);
+                text=text.slice(0,text.length-1);
+                $('.screen').html(num + '<p>' + text +'</p>' );
+                bool2=true;
+            }        
+                 /*   else if(num.length>1){
+                
+                num=num.slice(0,num.length-1);
+                text=text.slice(0,text.length-1);
+                $('.screen').html(num + '<p>' + text +'</p>' );
+            }else{
+                ar.pop();
+                num=0;
+                text=0;
+                 $('.screen').html(num + '<p>' + text +'</p>' );
+                bool=true;
+                bool4=true;
+            } */
+            break;  
           case 'AC':
             ar=[];
             num=0;
-            text='';
+            text=0;
             bool =true;
             bool2=false;
-            $('.screen').text(num);
+            $('.screen').html(num + '<p>' + text +'</p>' );
             break;
         default:
              switch (bool4){
@@ -144,19 +171,18 @@ function count(ar) {
                 case true:
                 bool=false;
                 num='';
-                  
                 break;    
             }
-        
+        console.log(num);
         num += $(this).text();
         text+=$(this).text();
       
         bool2=true;
         bool3=true; 
         bool5=true;        
-            console.log(num);
+            
     $('.screen').html(num + '<p>' + text +'</p>' );
-            if(num.length>10){
+            if(num.length>10){  //check for digit limit
             
             $('.screen').html('Digit limit met');
             num='';
@@ -165,7 +191,7 @@ function count(ar) {
     }
         
  
-        
+  console.log(ar);      
         
 })
     
