@@ -119,7 +119,7 @@ function count(ar) {
             text+=str;
                    
              $('.screen').html(str + '<p>' + text +'</p>' );
-                
+                 text=str;
         ar=[];
          bool = true;
         bool2=true;
@@ -213,7 +213,7 @@ function count(ar) {
         bool5=true;        
            
     $('.screen').html(str + '<p>' + text +'</p>' );
-            if(str.length>10){  //check for digit limit
+            if(str.length>10 || text.length>30){  //check for digit limit
             
             $('.screen').html('Digit limit met');
             str='';
