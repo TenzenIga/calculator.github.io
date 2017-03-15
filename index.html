@@ -69,6 +69,7 @@ function count(ar) {
   return count(ar);
 }
             var ar= [];//array of number and operations
+            var str ='';
             var num ='';
             var bool=false; //boolean for number
             var bool2=false; //boolean for operations
@@ -84,9 +85,7 @@ function count(ar) {
         case '/':
             switch (bool2){
                 case true:    
-    ar.push(num);
-    ar.push($(this).text());
-      num += $(this).text();               
+      //str += $(this).text();               
      text+=$(this).text();                
         $('.screen').html($(this).text() + '<p>' + text + '<p>');
                     
@@ -101,14 +100,26 @@ function count(ar) {
             }
             
         break;    
-    case '=':
+    case '=': //counting
+            
             switch (bool3){
                 case true: 
-                    ar.push(num);
-    num =count(ar);
-            text+=$(this).text()+num;
+                    text+=$(this).text();
+                    for(var i=0;i<text.length;i++){ //turning string into array
+
+  if(text[i] === '+' || text[i] === '-' || text[i]=== '='|| text[i]=== '/'|| text[i]=== 'x'){
+    ar.push(num);
+    ar.push(text[i])
+    num='';
+  }else{
+  num+=text[i];
+  }
+                    }
+                    ar.pop();
+    str =count(ar);
+            text+=str;
                    
-             $('.screen').html(num + '<p>' + text +'</p>' );
+             $('.screen').html(str + '<p>' + text +'</p>' );
                 
         ar=[];
          bool = true;
@@ -119,11 +130,11 @@ function count(ar) {
             }
             break;
         case '.':
-            if(/[.]/.test(num)===false){
+            if(/[.]/.test(str)===false){
              if(bool5){
-        num += $(this).text();
+        str += $(this).text();
         text+=$(this).text();
-        $('.screen').html(num + '<p>' + text +'</p>' );            
+        $('.screen').html(str + '<p>' + text +'</p>' );            
             bool=false;
                 bool4=false;
                 bool5=false;
@@ -131,34 +142,54 @@ function count(ar) {
             }
             break;
             case 'CE':
-             else if(num.length>1){
-                 if(!bool2){
-                ar.pop();
-                //num=num.slice(0,num.length-1);
-                //text=text.slice(0,text.length-1);
-                $('.screen').html(num + '<p>' + text +'</p>' );
-                bool2=true;
-            }        
-                 
-                num=num.slice(0,num.length-1);
-                text=text.slice(0,text.length-1);
-                $('.screen').html(num + '<p>' + text +'</p>' );
-            }else{
-                ar.pop();
-                num=0;
-                text=0;
-                 $('.screen').html(num + '<p>' + text +'</p>' );
-                bool=true;
-                bool4=true;
-            } 
-            break;  
-          case 'AC':
-            ar=[];
-            num=0;
+            if(!bool3){
+                  str=0;
             text=0;
             bool =true;
             bool2=false;
-            $('.screen').html(num + '<p>' + text +'</p>' );
+            $('.screen').html(str + '<p>' + text +'</p>' );
+            }
+                if(text[text.length-1]==='+'||text[text.length-1]==='-'||text[text.length-1]==='x'||text[text.length-1]==='/'){
+                
+                //str=str.slice(0,str.length-1);
+                text=text.slice(0,text.length-1);
+                $('.screen').html('0' + '<p>' + text +'</p>' );
+                bool2=true;
+            }else if(text.length>1){
+                
+                if(str.length >1){
+                    str=str.slice(0,str.length-1);
+                    
+                }else{
+                    str=0;
+                
+                }
+                text=text.slice(0,text.length-1);
+                $('.screen').html(str + '<p>' + text +'</p>' );
+                switch (text[text.length-1]){
+                    case '+':
+                    case '-':
+                    case 'x':
+                    case '/':
+                        bool2=false;
+                    break;
+                }
+                console.log(text);
+            }else{
+                str=0;
+                text=0;
+                 $('.screen').html(str + '<p>' + text +'</p>' );
+                bool=true;
+                bool4=true;
+            }        
+            break; 
+          case 'AC':
+            ar=[];
+            str=0;
+            text=0;
+            bool =true;
+            bool2=false;
+            $('.screen').html(str + '<p>' + text +'</p>' );
             break;
         default:
              switch (bool4){
@@ -170,22 +201,22 @@ function count(ar) {
             switch (bool){
                 case true:
                 bool=false;
-                num='';
+                str='';
                 break;    
             }
-        console.log(num);
-        num += $(this).text();
+        
+        str += $(this).text();
         text+=$(this).text();
-      
+      console.log(text);
         bool2=true;
         bool3=true; 
         bool5=true;        
-            
-    $('.screen').html(num + '<p>' + text +'</p>' );
-            if(num.length>10){  //check for digit limit
+           
+    $('.screen').html(str + '<p>' + text +'</p>' );
+            if(str.length>10){  //check for digit limit
             
             $('.screen').html('Digit limit met');
-            num='';
+            str='';
             text='';    
         }    
     }
