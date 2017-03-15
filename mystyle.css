@@ -1,3 +1,10 @@
+
+body{
+    background-color: #00FFFF;
+}
+h1{
+    margin:20px auto;
+}
 h3{
   margin-top:15px   
 }
@@ -7,7 +14,7 @@ h3{
     padding:5px 5px;
     width: 350px;
     border: none;
-    background-color: #C0C0C0;
+    background-color:#C0C0C0;
     margin: 50px auto;
     border-radius: 15px;
     box-shadow: 0 0 5px 5px grey;
@@ -35,7 +42,7 @@ button{
     border-radius:10px;
     border:none;
     text-align: center;
-    background-color:DarkSlateGray;
+    background-color:cyan;
     box-shadow: 0 4px gray;
 }
 button:active{
